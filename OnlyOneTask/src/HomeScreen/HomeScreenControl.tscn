@@ -1,0 +1,151 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://src/HomeScreen/homeScreenTheme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/Kenney Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/home_styles/textedit_focus.tres" type="StyleBox" id=3]
+[ext_resource path="res://assets/home_styles/textedit_reg.tres" type="StyleBox" id=4]
+[ext_resource path="res://assets/home_styles/button/normal.tres" type="StyleBox" id=5]
+[ext_resource path="res://assets/home_styles/button/pressed.tres" type="StyleBox" id=6]
+[ext_resource path="res://assets/home_styles/button/hover.tres" type="StyleBox" id=7]
+[ext_resource path="res://src/HomeScreen/HomeScreenControl.gd" type="Script" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 12
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="DynamicFont" id=5]
+size = 11
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 10
+font_data = ExtResource( 2 )
+
+[node name="HomeScreenControl" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 640, 360 )
+theme = ExtResource( 1 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 640, 360 )
+custom_constants/separation = 34
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title_label" type="Label" parent="VBoxContainer"]
+margin_right = 640.0
+margin_bottom = 48.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.937255, 0.937255, 0.937255, 1 )
+custom_colors/font_color_shadow = Color( 0.188235, 0.188235, 0.188235, 1 )
+custom_constants/shadow_offset_x = 6
+custom_constants/shadow_offset_y = 0
+text = "Only One Task"
+align = 1
+valign = 1
+
+[node name="tip_label" type="Label" parent="VBoxContainer"]
+margin_top = 82.0
+margin_right = 640.0
+margin_bottom = 133.0
+rect_min_size = Vector2( 640, 50 )
+custom_colors/font_color = Color( 0.760784, 0.772549, 0.529412, 1 )
+custom_colors/font_color_shadow = Color( 0.188235, 0.180392, 0.0627451, 1 )
+custom_constants/shadow_offset_x = 5
+text = "Put the one thing you want to do today in that text box, when you are done, you can change it"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 167.0
+margin_right = 640.0
+margin_bottom = 197.0
+custom_constants/separation = 24
+alignment = 1
+
+[node name="lineEdit_main" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+margin_right = 512.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 450, 30 )
+size_flags_horizontal = 3
+custom_styles/focus = ExtResource( 3 )
+custom_styles/normal = ExtResource( 4 )
+custom_fonts/font = SubResource( 2 )
+align = 1
+placeholder_text = "make it short and simple"
+
+[node name="submit_button" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 536.0
+margin_right = 640.0
+margin_bottom = 30.0
+custom_styles/hover = ExtResource( 7 )
+custom_styles/pressed = ExtResource( 6 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/normal = ExtResource( 5 )
+text = "  Submit  "
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 231.0
+margin_right = 640.0
+margin_bottom = 268.0
+
+[node name="slider_info_label" type="Label" parent="VBoxContainer/VBoxContainer2"]
+margin_right = 640.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 5 )
+text = "Use the slider to set  reminder time, 15 mins default"
+align = 1
+valign = 1
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/VBoxContainer2"]
+margin_top = 21.0
+margin_right = 640.0
+margin_bottom = 37.0
+min_value = 1.0
+max_value = 60.0
+value = 15.0
+tick_count = 59
+ticks_on_borders = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 302.0
+margin_right = 640.0
+margin_bottom = 346.0
+
+[node name="copyright_label" type="Label" parent="VBoxContainer/VBoxContainer"]
+margin_right = 640.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 640, 20 )
+custom_fonts/font = SubResource( 4 )
+text = "Copyright: NAD LABS 2020"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="kenney_label" type="Label" parent="VBoxContainer/VBoxContainer"]
+margin_top = 24.0
+margin_right = 640.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 640, 20 )
+custom_fonts/font = SubResource( 4 )
+text = "Font made by Kenney Assets (Most amazing fonts ever"
+align = 1
+valign = 1
+autowrap = true
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/submit_button" to="." method="_on_submit_button_pressed"]
+[connection signal="value_changed" from="VBoxContainer/VBoxContainer2/HSlider" to="." method="_on_HSlider_value_changed"]
